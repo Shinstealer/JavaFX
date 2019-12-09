@@ -114,10 +114,4 @@ public class Person {
 		this.birthdayProperty().set(birthday);
 	}
 
-	@Override
-	public String toString() {
-		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", street=" + street + ", postalcode="
-				+ postalcode + ", city=" + city + ", birthday=" + birthday + "]";
-	}
-
 }
