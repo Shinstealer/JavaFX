@@ -1,7 +1,5 @@
 package shinstealer.address;
 
-import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -82,6 +80,9 @@ public class MainApp extends Application {
 
 			// 연락처 요약을 상위 레이아웃 가운데로 설정한다.
 			rootLayout.setCenter(personOverView);
+
+			PersonOverViewController controller = loader.getController();
+			controller.setMainApp(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,22 +110,5 @@ public class MainApp extends Application {
 		return personData;
 	}
 
-	public void showPersonOverview() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
-			AnchorPane personOverView = (AnchorPane) loader.load();
-
-			// 연락처 요약을 상위 레이아웃 가운데로 설정한다.
-			rootLayout.setCenter(personOverView);
-
-			// 메인 애플리케이션이 컨트롤러를 이용할 수 있게 한다.
-			PersonOverViewController controller = loader.getController();
-			controller.setMainApp(this);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 }
