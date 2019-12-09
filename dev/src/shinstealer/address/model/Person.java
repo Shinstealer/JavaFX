@@ -42,76 +42,76 @@ public class Person {
 
 	}
 
-	public final StringProperty firstNameProperty() {
-		return this.firstName;
-	}
+	public String getFirstName() {
+        return firstName.get();
+    }
 
-	public final String getFirstName() {
-		return this.firstNameProperty().get();
-	}
+    public void setFirstName(String firstName) {
+        this.firstName.set(firstName);
+    }
 
-	public final void setFirstName(final String firstName) {
-		this.firstNameProperty().set(firstName);
-	}
+    public StringProperty firstNameProperty() {
+        return firstName;
+    }
 
-	public final StringProperty lastNameProperty() {
-		return this.lastName;
-	}
+    public String getLastName() {
+        return lastName.get();
+    }
 
-	public final String getLastName() {
-		return this.lastNameProperty().get();
-	}
+    public void setLastName(String lastName) {
+        this.lastName.set(lastName);
+    }
 
-	public final void setLastName(final String lastName) {
-		this.lastNameProperty().set(lastName);
-	}
+    public StringProperty lastNameProperty() {
+        return lastName;
+    }
 
-	public final StringProperty streetProperty() {
-		return this.street;
-	}
+    public String getStreet() {
+        return street.get();
+    }
 
-	public final String getStreet() {
-		return this.streetProperty().get();
-	}
+    public void setStreet(String street) {
+        this.street.set(street);
+    }
 
-	public final void setStreet(final String street) {
-		this.streetProperty().set(street);
-	}
+    public StringProperty streetProperty() {
+        return street;
+    }
 
-	public final IntegerProperty postalcodeProperty() {
-		return this.postalcode;
-	}
+    public int getPostalCode() {
+        return postalcode.get();
+    }
 
-	public final int getPostalcode() {
-		return this.postalcodeProperty().get();
-	}
+    public void setPostalCode(int postalCode) {
+        this.postalcode.set(postalCode);
+    }
 
-	public final void setPostalcode(final int postalcode) {
-		this.postalcodeProperty().set(postalcode);
-	}
+    public IntegerProperty postalCodeProperty() {
+        return postalcode;
+    }
 
-	public final StringProperty cityProperty() {
-		return this.city;
-	}
+    public String getCity() {
+        return city.get();
+    }
 
-	public final String getCity() {
-		return this.cityProperty().get();
-	}
+    public void setCity(String city) {
+        this.city.set(city);
+    }
 
-	public final void setCity(final String city) {
-		this.cityProperty().set(city);
-	}
+    public StringProperty cityProperty() {
+        return city;
+    }
 
-	public final ObjectProperty<LocalDate> birthdayProperty() {
-		return this.birthday;
-	}
+    public LocalDate getBirthday() {
+        return birthday.get();
+    }
 
-	public final LocalDate getBirthday() {
-		return this.birthdayProperty().get();
-	}
+    public void setBirthday(LocalDate birthday) {
+        this.birthday.set(birthday);
+    }
 
-	public final void setBirthday(final LocalDate birthday) {
-		this.birthdayProperty().set(birthday);
-	}
+    public ObjectProperty<LocalDate> birthdayProperty() {
+        return birthday;
+    }
 
 }

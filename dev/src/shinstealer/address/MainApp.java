@@ -30,6 +30,26 @@ public class MainApp extends Application {
 	}
 
 	/**
+	 * 연락처에 대한 observable 리스트
+	 */
+	private ObservableList<Person> personData = FXCollections.observableArrayList();
+
+	/**
+	 * 생성자
+	 */
+	public MainApp() {
+		personData.add(new Person("kim", "sungmin"));
+		personData.add(new Person("Ruth", "Mueller"));
+		personData.add(new Person("Heinz", "Kurz"));
+		personData.add(new Person("Cornelia", "Meier"));
+		personData.add(new Person("Werner", "Meyer"));
+		personData.add(new Person("Lydia", "Kunz"));
+		personData.add(new Person("Anna", "Best"));
+		personData.add(new Person("Stefan", "Meier"));
+		personData.add(new Person("Martin", "Mueller"));
+	}
+
+	/**
 	* 상위 레이아웃을 초기화한다.
 	*/
 	public void initRootLayout() {
@@ -79,25 +99,7 @@ public class MainApp extends Application {
 		launch(args);
 	}
 
-	/**
-	 * 연락처에 대한 observable 리스트
-	 */
-	private ObservableList<Person> personData = FXCollections.observableArrayList();
 
-	/**
-	 * 생성자
-	 */
-	public MainApp() {
-		personData.add(new Person("kim", "sungmin"));
-		personData.add(new Person("Ruth", "Mueller"));
-		personData.add(new Person("Heinz", "Kurz"));
-		personData.add(new Person("Cornelia", "Meier"));
-		personData.add(new Person("Werner", "Meyer"));
-		personData.add(new Person("Lydia", "Kunz"));
-		personData.add(new Person("Anna", "Best"));
-		personData.add(new Person("Stefan", "Meier"));
-		personData.add(new Person("Martin", "Mueller"));
-	}
 
 	/**
 	 * 연락처에 대한 observable 리스트를 반환한다.
