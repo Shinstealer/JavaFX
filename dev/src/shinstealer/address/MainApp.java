@@ -7,8 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import shinstealer.address.model.Person;
+import shinstealer.address.view.PersonEditDialogController;
 import shinstealer.address.view.PersonOverViewController;
 
 public class MainApp extends Application {
@@ -87,6 +89,34 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
+
+	public boolean showPersonEditDialog() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// make new stage
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit person");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			PersonEditDialogController controller = loader.getController();
+	        controller.setDialogStage(dialogStage);
+
+
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return false;
+
+	}
+
 
 	/**
 	* 메인 스테이지를 반환한다.
