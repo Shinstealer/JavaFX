@@ -2,6 +2,7 @@ package shinstealer.address.utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class DateUtil {
 
@@ -15,6 +16,19 @@ public class DateUtil {
 
 		return DATE_FORMATTER.format(date);
 
+	}
+
+	public static LocalDate parse(String dateString) {
+		try {
+
+			return DATE_FORMATTER.parse(dateString, LocalDate::from);
+		} catch (DateTimeParseException e) {
+			return null;
+		}
+	}
+
+	public static boolean validDate(String dateString) {
+		return DateUtil.parse(dateString) != null;
 	}
 
 }
