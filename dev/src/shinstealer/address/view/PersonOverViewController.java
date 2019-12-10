@@ -1,11 +1,14 @@
 package shinstealer.address.view;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import shinstealer.address.MainApp;
 import shinstealer.address.model.Person;
+import shinstealer.address.utils.DateUtil;
 
 public class PersonOverViewController {
 
@@ -48,6 +51,9 @@ public class PersonOverViewController {
 		// 연락처 테이블의 두 열을 초기화한다.
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+
+		showPersonDetail(null);
+		personTable.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue)->showPersonDetail(newValue));
 	}
 
 	public void setMainApp(MainApp mainApp) {
@@ -64,7 +70,7 @@ public class PersonOverViewController {
 			streetLabel.setText(person.getStreet());
 			postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
 			cityLabel.setText(person.getCity());
-			birthdayLabel.setText(String.valueOf(person.getBirthday()));
+			birthdayLabel.setText(DateUtil.format(person.getBirthday()));
 		} else {
 			firstNameLabel.setText("");
 			lastNameLabel.setText("");
@@ -74,6 +80,22 @@ public class PersonOverViewController {
 			birthdayLabel.setText("");
 		}
 
+	}
+
+	@FXML
+	private void handleDeletePerson() {
+		int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
+		if(selectedIndex >=0) {
+
+			personTable.getItems().remove(selectedIndex);
+		}else {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.initOwner(mainApp.getPrimaryStage());
+			alert.setTitle("NO selection");
+			alert.setHeaderText("No Person Selected");
+			alert.setContentText("select anyone if you want to delete!");
+			alert.showAndWait();
+		}
 	}
 
 }

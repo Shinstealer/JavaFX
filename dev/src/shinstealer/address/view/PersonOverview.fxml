@@ -68,7 +68,7 @@
                     <buttons>
                       <Button mnemonicParsing="false" text="New" />
                         <Button mnemonicParsing="false" text="Edit" />
-                        <Button mnemonicParsing="false" text="Del" />
+                        <Button mnemonicParsing="false" onAction="#handleDeletePerson" text="Del" />
                     </buttons>
                   </ButtonBar>
                </children>
