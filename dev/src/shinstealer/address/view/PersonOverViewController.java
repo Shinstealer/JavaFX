@@ -31,15 +31,12 @@ public class PersonOverViewController {
 
 	private MainApp mainApp;
 
-
-
-
 	/**
 	 * 생성자.
 	 * initialize() 메서드 이전에 호출된다.
 	 */
 	public PersonOverViewController() {
-    }
+	}
 
 	/**
 	 * 컨트롤러 클래스를 초기화한다.
@@ -49,15 +46,34 @@ public class PersonOverViewController {
 	@FXML
 	private void initialize() {
 		// 연락처 테이블의 두 열을 초기화한다.
-        firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
-        lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
+		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 	}
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 
 		// 테이블에 observable 리스트 데이터를 추가한다.
-        personTable.setItems(mainApp.getPersonData());
+		personTable.setItems(mainApp.getPersonData());
+	}
+
+	private void showPersonDetail(Person person) {
+		if (person != null) {
+			firstNameLabel.setText(person.getFirstName());
+			lastNameLabel.setText(person.getLastName());
+			streetLabel.setText(person.getStreet());
+			postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
+			cityLabel.setText(person.getCity());
+			birthdayLabel.setText(String.valueOf(person.getBirthday()));
+		} else {
+			firstNameLabel.setText("");
+			lastNameLabel.setText("");
+			streetLabel.setText("");
+			postalCodeLabel.setText("");
+			cityLabel.setText("");
+			birthdayLabel.setText("");
+		}
+
 	}
 
 }
