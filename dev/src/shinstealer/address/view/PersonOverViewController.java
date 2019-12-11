@@ -53,7 +53,8 @@ public class PersonOverViewController {
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 
 		showPersonDetail(null);
-		personTable.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue)->showPersonDetail(newValue));
+		personTable.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> showPersonDetail(newValue));
 	}
 
 	public void setMainApp(MainApp mainApp) {
@@ -85,10 +86,10 @@ public class PersonOverViewController {
 	@FXML
 	private void handleDeletePerson() {
 		int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
-		if(selectedIndex >=0) {
+		if (selectedIndex >= 0) {
 
 			personTable.getItems().remove(selectedIndex);
-		}else {
+		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(mainApp.getPrimaryStage());
 			alert.setTitle("NO selection");
@@ -96,6 +97,36 @@ public class PersonOverViewController {
 			alert.setContentText("select anyone if you want to delete!");
 			alert.showAndWait();
 		}
+	}
+
+	@FXML
+	private void handleNewPerson() {
+		Person tempPerson = new Person();
+		boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
+		if (okClicked) {
+			mainApp.getPersonData().add(tempPerson);
+		}
+	}
+
+	@FXML
+	private void handleEditPerson() {
+		Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+		if (selectedPerson != null) {
+			boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
+			if (okClicked) {
+				showPersonDetail(selectedPerson);
+			}
+		} else {
+			// 아무것도 선택하지 않았다.
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.initOwner(mainApp.getPrimaryStage());
+			alert.setTitle("No Selection");
+			alert.setHeaderText("No Person Selected");
+			alert.setContentText("Please select a person in the table.");
+
+			alert.showAndWait();
+		}
+
 	}
 
 }

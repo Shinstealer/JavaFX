@@ -90,7 +90,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public boolean showPersonEditDialog() {
+	public boolean showPersonEditDialog(Person person) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
@@ -105,18 +105,19 @@ public class MainApp extends Application {
 			dialogStage.setScene(scene);
 
 			PersonEditDialogController controller = loader.getController();
-	        controller.setDialogStage(dialogStage);
+			controller.setDialogStage(dialogStage);
+			controller.setPerson(person);
 
+			dialogStage.showAndWait();
 
+			return controller.isOkClicked();
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return false;
 		}
 
-		return false;
-
 	}
-
 
 	/**
 	* 메인 스테이지를 반환한다.
@@ -130,8 +131,6 @@ public class MainApp extends Application {
 		launch(args);
 	}
 
-
-
 	/**
 	 * 연락처에 대한 observable 리스트를 반환한다.
 	 * @return
@@ -139,6 +138,5 @@ public class MainApp extends Application {
 	public ObservableList<Person> getPersonData() {
 		return personData;
 	}
-
 
 }
