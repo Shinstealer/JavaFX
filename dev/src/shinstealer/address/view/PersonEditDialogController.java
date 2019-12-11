@@ -27,9 +27,9 @@ public class PersonEditDialogController {
 	private Person person;
 	private Boolean okClicked = false;
 
-	private void initialize() {
-
-	}
+	@FXML
+    private void initialize() {
+    }
 
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
@@ -42,9 +42,10 @@ public class PersonEditDialogController {
 		firstNameField.setText(person.getFirstName());
 		lastNameField.setText(person.getLastName());
 		streetField.setText(person.getStreet());
-		postalCodeField.setText(Integer.toString(person.getPostalCode()));
 		cityField.setText(person.getCity());
+		postalCodeField.setText(Integer.toString(person.getPostalCode()));
 		birthdayField.setText(DateUtil.format(person.getBirthday()));
+		birthdayField.setPromptText("dd-MM-YYYY");
 
 	}
 

@@ -49,12 +49,17 @@ public class PersonOverViewController {
 	@FXML
 	private void initialize() {
 		// 연락처 테이블의 두 열을 초기화한다.
-		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
-		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+		firstNameColumn.setCellValueFactory(
+				cellData -> cellData.getValue().firstNameProperty());
+		lastNameColumn.setCellValueFactory(
+				cellData -> cellData.getValue().lastNameProperty());
 
+		// 연락처 정보를 지운다.
 		showPersonDetail(null);
-		personTable.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> showPersonDetail(newValue));
+
+		// 선택을 감지하고 그 때마다 연락처의 자세한 정보를 보여준다.
+		personTable.getSelectionModel().selectedItemProperty().addListener(
+				(observable, oldValue, newValue) -> showPersonDetail(newValue));
 	}
 
 	public void setMainApp(MainApp mainApp) {
