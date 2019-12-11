@@ -96,17 +96,17 @@ public class MainApp extends Application {
 			loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
-			// make new stage
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Edit person");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
+			  // 다이얼로그 스테이지를 만든다.
+	        Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Edit Person");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(primaryStage);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
 
-			PersonEditDialogController controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setPerson(person);
+	        PersonEditDialogController controller = loader.getController();
+	        controller.setDialogStage(dialogStage);
+	        controller.setPerson(person);
 
 			dialogStage.showAndWait();
 

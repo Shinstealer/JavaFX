@@ -115,7 +115,7 @@ public class PersonOverViewController {
 
 	@FXML
 	private void handleEditPerson() {
-		Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+		Person selectedPerson = (Person) personTable.getSelectionModel().getSelectedItem();
 		if (selectedPerson != null) {
 			boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
 			if (okClicked) {
