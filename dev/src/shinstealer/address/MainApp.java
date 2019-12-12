@@ -1,5 +1,8 @@
 package shinstealer.address;
 
+import java.io.File;
+import java.util.prefs.Preferences;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -137,6 +140,39 @@ public class MainApp extends Application {
 	 */
 	public ObservableList<Person> getPersonData() {
 		return personData;
+	}
+
+	/**
+	 * 연락처 파일 환경설정을 반환한다.
+	 * 즉 파일은 마지막으로 열린 것이고, 환경설정은 OS 특정 레지스트리로부터 읽는다.
+	 * 만일 preference를 찾지 못하면 null을 반환한다.
+	 *
+	 * @return
+	 */
+	public File getPersonFilePath() {
+		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+		String filepath = prefs.get("filePath", null);
+		if(filepath != null) {
+			return new File(filepath);
+		}else {
+			return null;
+		}
+	}
+	/**
+	 * 현재 불러온 파일의 경로를 설정한다. 이 경로는 OS 특정 레지스트리에 저장된다.
+	 *
+	 * @param file the file or null to remove the path
+	 */
+	public void setPersonFilePath(File file) {
+		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+		if(file != null) {
+			prefs.put("filePath", file.getPath());
+
+			primaryStage.setTitle("Address App - " + file.getName());
+		}else {
+			prefs.remove("filePath");
+			primaryStage.setTitle("Address App");
+		}
 	}
 
 }
