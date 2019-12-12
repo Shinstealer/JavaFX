@@ -45,7 +45,7 @@ public class PersonEditDialogController {
 		cityField.setText(person.getCity());
 		postalCodeField.setText(Integer.toString(person.getPostalCode()));
 		birthdayField.setText(DateUtil.format(person.getBirthday()));
-		birthdayField.setPromptText("dd-MM-YYYY");
+		birthdayField.setPromptText("dd-MM-yyyy");
 
 	}
 
@@ -56,7 +56,7 @@ public class PersonEditDialogController {
 
 	@FXML
 	public void handleOk() {
-		if (isOkClicked()) {
+		if (inputValid()) {
 			person.setFirstName(firstNameField.getText());
 			person.setLastName(lastNameField.getText());
 			person.setStreet(streetField.getText());

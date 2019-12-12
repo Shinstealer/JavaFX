@@ -32,11 +32,11 @@
             <Label text="Postal Code" GridPane.rowIndex="4" />
             <Label text="Birthday" GridPane.rowIndex="5" />
             <TextField fx:id="firstNameField" GridPane.columnIndex="1" />
-            <TextField fx:id="LastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="StreetField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="CityField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="PostalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="BirthdayField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="streetField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="postalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="birthdayField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <ButtonBar layoutX="186.0" layoutY="354.0" prefHeight="40.0" prefWidth="200.0">
