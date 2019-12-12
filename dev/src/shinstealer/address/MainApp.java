@@ -3,16 +3,22 @@ package shinstealer.address;
 import java.io.File;
 import java.util.prefs.Preferences;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import shinstealer.address.model.Person;
+import shinstealer.address.model.PersonListWrapper;
 import shinstealer.address.view.PersonEditDialogController;
 import shinstealer.address.view.PersonOverViewController;
 
@@ -99,17 +105,17 @@ public class MainApp extends Application {
 			loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
-			  // 다이얼로그 스테이지를 만든다.
-	        Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Edit Person");
-	        dialogStage.initModality(Modality.WINDOW_MODAL);
-	        dialogStage.initOwner(primaryStage);
-	        Scene scene = new Scene(page);
-	        dialogStage.setScene(scene);
+			// 다이얼로그 스테이지를 만든다.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Person");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
 
-	        PersonEditDialogController controller = loader.getController();
-	        controller.setDialogStage(dialogStage);
-	        controller.setPerson(person);
+			PersonEditDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setPerson(person);
 
 			dialogStage.showAndWait();
 
@@ -152,12 +158,13 @@ public class MainApp extends Application {
 	public File getPersonFilePath() {
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 		String filepath = prefs.get("filePath", null);
-		if(filepath != null) {
+		if (filepath != null) {
 			return new File(filepath);
-		}else {
+		} else {
 			return null;
 		}
 	}
+
 	/**
 	 * 현재 불러온 파일의 경로를 설정한다. 이 경로는 OS 특정 레지스트리에 저장된다.
 	 *
@@ -165,16 +172,45 @@ public class MainApp extends Application {
 	 */
 	public void setPersonFilePath(File file) {
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-		if(file != null) {
+		if (file != null) {
 			prefs.put("filePath", file.getPath());
 
 			primaryStage.setTitle("Address App - " + file.getName());
-		}else {
+		} else {
 			prefs.remove("filePath");
 			primaryStage.setTitle("Address App");
 		}
 	}
 
+	/**
+	 * 지정한 파일로부터 연락처 데이터를 가져온다. 현재 연락처 데이터로 대체된다.
+	 *
+	 * @param file
+	 */
 
+	public void loadPersonDataFromFile(File file) {
+
+		try {
+			JAXBContext context = JAXBContext.newInstance(PersonListWrapper.class);
+			Unmarshaller um = context.createUnmarshaller();
+
+			PersonListWrapper wrapper = (PersonListWrapper) um.unmarshal(file);
+
+			personData.clear();
+			personData.addAll(wrapper.getPerson());
+
+			setPersonFilePath(file);
+
+		} catch (Exception e) {
+
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Could not load data");
+			alert.setContentText("Could not load data from file:\n" + file.getPath());
+
+			alert.showAndWait();
+
+		}
+	}
 
 }
