@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.prefs.Preferences;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import javafx.application.Application;
@@ -207,6 +208,31 @@ public class MainApp extends Application {
 			alert.setTitle("Error");
 			alert.setHeaderText("Could not load data");
 			alert.setContentText("Could not load data from file:\n" + file.getPath());
+
+			alert.showAndWait();
+
+		}
+	}
+
+	public void savePersonDataFromFile(File file) {
+		try {
+			JAXBContext context = JAXBContext.newInstance(PersonListWrapper.class);
+			Marshaller m = context.createMarshaller();
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+			PersonListWrapper wrapper = new PersonListWrapper();
+			wrapper.setPerson(personData);
+
+			//save to file after marshal
+			m.marshal(wrapper, file);
+
+			//save filePath to registry
+			setPersonFilePath(file);
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Could not save data");
+			alert.setContentText("Could not save data to file:\n" + file.getPath());
 
 			alert.showAndWait();
 
