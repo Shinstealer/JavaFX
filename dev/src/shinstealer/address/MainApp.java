@@ -214,7 +214,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void savePersonDataFromFile(File file) {
+	public void savePersonDataToFile(File file) {
 		try {
 			JAXBContext context = JAXBContext.newInstance(PersonListWrapper.class);
 			Marshaller m = context.createMarshaller();
