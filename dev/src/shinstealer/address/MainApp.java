@@ -22,6 +22,7 @@ import shinstealer.address.model.Person;
 import shinstealer.address.model.PersonListWrapper;
 import shinstealer.address.view.PersonEditDialogController;
 import shinstealer.address.view.PersonOverViewController;
+import shinstealer.address.view.RootLayoutController;
 
 public class MainApp extends Application {
 
@@ -73,10 +74,19 @@ public class MainApp extends Application {
 
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
-			primaryStage.show();
 
+			//컨트롤러한테 MainApp 접근 권한을 준다.
+			RootLayoutController controller = new RootLayoutController();
+			controller.setMain(this);
+
+			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+
+		File file = getPersonFilePath();
+		if(file != null) {
+			loadPersonDataFromFile(file);
 		}
 	}
 
