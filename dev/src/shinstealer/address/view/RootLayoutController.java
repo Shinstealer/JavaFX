@@ -12,9 +12,6 @@ public class RootLayoutController {
 
 	private MainApp main;
 
-	public MainApp getMain() {
-		return main;
-	}
 
 	public void setMain(MainApp main) {
 		this.main = main;

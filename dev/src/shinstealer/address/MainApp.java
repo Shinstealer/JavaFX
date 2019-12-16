@@ -85,7 +85,7 @@ public class MainApp extends Application {
 		}
 
 		File file = getPersonFilePath();
-		if(file != null) {
+		if (file != null) {
 			loadPersonDataFromFile(file);
 		}
 	}
@@ -202,15 +202,18 @@ public class MainApp extends Application {
 	public void loadPersonDataFromFile(File file) {
 
 		try {
-			JAXBContext context = JAXBContext.newInstance(PersonListWrapper.class);
-			Unmarshaller um = context.createUnmarshaller();
+			JAXBContext context = JAXBContext
+	                .newInstance(PersonListWrapper.class);
+	        Unmarshaller um = context.createUnmarshaller();
 
-			PersonListWrapper wrapper = (PersonListWrapper) um.unmarshal(file);
+	        // 파일로부터 XML을 읽은 다음 역 마샬링한다.
+	        PersonListWrapper wrapper = (PersonListWrapper) um.unmarshal(file);
 
-			personData.clear();
-			personData.addAll(wrapper.getPerson());
+	        personData.clear();
+	        personData.addAll(wrapper.getPerson());
 
-			setPersonFilePath(file);
+	        // 파일 경로를 레지스트리에 저장한다.
+	        setPersonFilePath(file);
 
 		} catch (Exception e) {
 
@@ -226,18 +229,20 @@ public class MainApp extends Application {
 
 	public void savePersonDataToFile(File file) {
 		try {
-			JAXBContext context = JAXBContext.newInstance(PersonListWrapper.class);
-			Marshaller m = context.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			JAXBContext context = JAXBContext
+	                .newInstance(PersonListWrapper.class);
+	        Marshaller m = context.createMarshaller();
+	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-			PersonListWrapper wrapper = new PersonListWrapper();
-			wrapper.setPerson(personData);
+	        // 연락처 데이터를 감싼다.
+	        PersonListWrapper wrapper = new PersonListWrapper();
+	        wrapper.setPerson(personData);
 
-			//save to file after marshal
-			m.marshal(wrapper, file);
+	        // 마샬링 후 XML을 파일에 저장한다.
+	        m.marshal(wrapper, file);
 
-			//save filePath to registry
-			setPersonFilePath(file);
+	        // 파일 경로를 레지스트리에 저장한다.
+	        setPersonFilePath(file);
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");

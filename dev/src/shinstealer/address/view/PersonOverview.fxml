@@ -29,7 +29,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="417.0" styleClass="background" stylesheets="@DarkTheme.css">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="417.0">
                <children>
                   <Label layoutX="14.0" layoutY="7.0" styleClass="label-header" text="Person Detail" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
