@@ -10,72 +10,104 @@ import shinstealer.address.MainApp;
 
 public class RootLayoutController {
 
-	private MainApp main;
+	// 메인 애플리케이션 참조
+	private MainApp mainApp;
 
-
-	public void setMain(MainApp main) {
-		this.main = main;
+	/**
+	 * 참조를 다시 유지하기 위해 메인 애플리케이션이 호출한다.
+	 *
+	 * @param mainApp
+	 */
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
 	}
 
+	/**
+	 * 비어 있는 주소록을 만든다.
+	 */
 	@FXML
-	public void handleNew() {
-		main.getPersonData().clear();
-		main.setPersonFilePath(null);
+	private void handleNew() {
+		mainApp.getPersonData().clear();
+		mainApp.setPersonFilePath(null);
 	}
 
+	/**
+	 * FileChooser를 열어서 사용자가 가져올 주소록을 선택하게 한다.
+	 */
 	@FXML
-	public void handleOpen() {
+	private void handleOpen() {
 		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFileter = new FileChooser.ExtensionFilter("xml files (*.xml)", "*.xml");
 
-		fileChooser.getExtensionFilters().add(extFileter);
+		// 확장자 필터를 설정한다.
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+				"XML files (*.xml)", "*.xml");
+		fileChooser.getExtensionFilters().add(extFilter);
 
-		File file = fileChooser.showOpenDialog(main.getPrimaryStage());
+		// Save File Dialog를 보여준다.
+		File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 
 		if (file != null) {
-			main.loadPersonDataFromFile(file);
+			mainApp.loadPersonDataFromFile(file);
 		}
-
 	}
 
+	/**
+	 * 현재 열려 있는 파일에 저장한다.
+	 * 만일 열려 있는 파일이 없으면 "save as" 다이얼로그를 보여준다.
+	 *
+	 */
 	@FXML
-	public void handleSave() {
-		File personFile = main.getPersonFilePath();
+	private void handleSave() {
+		File personFile = mainApp.getPersonFilePath();
 		if (personFile != null) {
-			main.savePersonDataToFile(personFile);
+			mainApp.savePersonDataToFile(personFile);
 		} else {
 			handleSaveAs();
 		}
 	}
 
+	/**
+	 * FileChooser를 열어서 사용자가 저장할 파일을 선택하게 한다.
+	 */
 	@FXML
-	public void handleSaveAs() {
+	private void handleSaveAs() {
 		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("xml files (*.xml)", "*.xml");
+
+		// 확장자 필터를 설정한다.
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+				"XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
 
-		File file = fileChooser.showSaveDialog(main.getPrimaryStage());
+		// Save File Dialog를 보여준다.
+		File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
 
-		if(file != null) {
-			if(file.getPath().endsWith(".xml")) {
+		if (file != null) {
+			// 정확한 확장자를 가져야 한다.
+			if (!file.getPath().endsWith(".xml")) {
 				file = new File(file.getPath() + ".xml");
 			}
-
-			main.savePersonDataToFile(file);
+			mainApp.savePersonDataToFile(file);
 		}
 	}
 
+	/**
+	 * About 다이얼로그를 보여준다.
+	 */
 	@FXML
-	public void handleAbout() {
+	private void handleAbout() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Address App");
+		alert.setTitle("AddressApp");
 		alert.setHeaderText("About");
-        alert.setContentText("Author: Marco Jakob\nWebsite: http://code.makery.ch");
+		alert.setContentText("Author: Marco Jakob\nWebsite: http://code.makery.ch");
 
-        alert.showAndWait();
+		alert.showAndWait();
 	}
+
+	/**
+	 * 애플리케이션을 닫는다.
+	 */
 	@FXML
-	public void handleExit() {
+	private void handleExit() {
 		System.exit(0);
 	}
 
