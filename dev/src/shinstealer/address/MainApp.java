@@ -1,7 +1,6 @@
 package shinstealer.address;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.prefs.Preferences;
 
 import javax.xml.bind.JAXBContext;
@@ -68,24 +67,23 @@ public class MainApp extends Application {
 		try {
 			// fxml 파일에서 상위 레이아웃을 가져온다.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class
-					.getResource("view/RootLayout.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 
 			// 상위 레이아웃을 포함하는 scene을 보여준다.
+
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 
-			// 컨트롤러한테 MainApp 접근 권한을 준다.
-			RootLayoutController controller = loader.getController();
-			controller.setMainApp(this);
+			//컨트롤러한테 MainApp 접근 권한을 준다.
+			RootLayoutController controller = new RootLayoutController();
+			controller.setMain(this);
 
 			primaryStage.show();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		// 마지막으로 열었던 연락처 파일을 가져온다.
 		File file = getPersonFilePath();
 		if (file != null) {
 			loadPersonDataFromFile(file);
@@ -170,9 +168,9 @@ public class MainApp extends Application {
 	 */
 	public File getPersonFilePath() {
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-		String filePath = prefs.get("filePath", null);
-		if (filePath != null) {
-			return new File(filePath);
+		String filepath = prefs.get("filePath", null);
+		if (filepath != null) {
+			return new File(filepath);
 		} else {
 			return null;
 		}
@@ -188,13 +186,10 @@ public class MainApp extends Application {
 		if (file != null) {
 			prefs.put("filePath", file.getPath());
 
-			// Stage 타이틀을 업데이트한다.
-			primaryStage.setTitle("AddressApp - " + file.getName());
+			primaryStage.setTitle("Address App - " + file.getName());
 		} else {
 			prefs.remove("filePath");
-
-			// Stage 타이틀을 업데이트한다.
-			primaryStage.setTitle("AddressApp");
+			primaryStage.setTitle("Address App");
 		}
 	}
 
@@ -208,51 +203,54 @@ public class MainApp extends Application {
 
 		try {
 			JAXBContext context = JAXBContext
-					.newInstance(PersonListWrapper.class);
-			Unmarshaller um = context.createUnmarshaller();
+	                .newInstance(PersonListWrapper.class);
+	        Unmarshaller um = context.createUnmarshaller();
 
-			// 파일로부터 XML을 읽은 다음 역 마샬링한다.
-			PersonListWrapper wrapper = (PersonListWrapper) um.unmarshal(file);
+	        // 파일로부터 XML을 읽은 다음 역 마샬링한다.
+	        PersonListWrapper wrapper = (PersonListWrapper) um.unmarshal(file);
 
-			personData.clear();
-			personData.addAll(wrapper.getPersons());
+	        personData.clear();
+	        personData.addAll(wrapper.getPerson());
 
-			// 파일 경로를 레지스트리에 저장한다.
-			setPersonFilePath(file);
+	        // 파일 경로를 레지스트리에 저장한다.
+	        setPersonFilePath(file);
 
-		} catch (Exception e) { // 예외를 잡는다
+		} catch (Exception e) {
+
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Could not load data");
 			alert.setContentText("Could not load data from file:\n" + file.getPath());
 
 			alert.showAndWait();
+
 		}
 	}
 
 	public void savePersonDataToFile(File file) {
 		try {
 			JAXBContext context = JAXBContext
-					.newInstance(PersonListWrapper.class);
-			Marshaller m = context.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+	                .newInstance(PersonListWrapper.class);
+	        Marshaller m = context.createMarshaller();
+	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-			// 연락처 데이터를 감싼다.
-			PersonListWrapper wrapper = new PersonListWrapper();
-			wrapper.setPersons(personData);
+	        // 연락처 데이터를 감싼다.
+	        PersonListWrapper wrapper = new PersonListWrapper();
+	        wrapper.setPerson(personData);
 
-			// 마샬링 후 XML을 파일에 저장한다.
-			m.marshal(wrapper, file);
+	        // 마샬링 후 XML을 파일에 저장한다.
+	        m.marshal(wrapper, file);
 
-			// 파일 경로를 레지스트리에 저장한다.
-			setPersonFilePath(file);
-		} catch (Exception e) { // 예외를 잡는다.
+	        // 파일 경로를 레지스트리에 저장한다.
+	        setPersonFilePath(file);
+		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Could not save data");
 			alert.setContentText("Could not save data to file:\n" + file.getPath());
 
 			alert.showAndWait();
+
 		}
 	}
 

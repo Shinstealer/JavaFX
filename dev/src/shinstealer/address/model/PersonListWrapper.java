@@ -8,14 +8,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "persons")
 public class PersonListWrapper {
 
-	private List<Person> persons;
+	private List<Person> person;
 
 	@XmlElement(name = "person")
-	public List<Person> getPersons() {
-		return persons;
+	public List<Person> getPerson() {
+		return person;
 	}
 
-	public void setPersons(List<Person> persons) {
-		this.persons = persons;
+	public void setPerson(List<Person> person) {
+		this.person = person;
 	}
+
 }
