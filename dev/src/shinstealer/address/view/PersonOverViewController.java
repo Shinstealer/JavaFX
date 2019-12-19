@@ -8,7 +8,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import shinstealer.address.MainApp;
 import shinstealer.address.model.Person;
-import shinstealer.address.utils.DateUtil;
 
 public class PersonOverViewController {
 
@@ -76,7 +75,7 @@ public class PersonOverViewController {
 			streetLabel.setText(person.getStreet());
 			postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
 			cityLabel.setText(person.getCity());
-			birthdayLabel.setText(DateUtil.format(person.getBirthday()));
+//			birthdayLabel.setText(DateUtil.format(person.getBirthday()));
 		} else {
 			firstNameLabel.setText("");
 			lastNameLabel.setText("");

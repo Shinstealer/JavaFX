@@ -1,11 +1,7 @@
 package shinstealer.address.model;
 
-import java.time.LocalDate;
-
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -16,7 +12,7 @@ public class Person {
 	private final StringProperty street;
 	private final IntegerProperty postalcode;
 	private final StringProperty city;
-	private final ObjectProperty<LocalDate> birthday;
+	//private final ObjectProperty<LocalDate> birthday;
 
 	/**
 	* 디폴트 생성자
@@ -38,7 +34,7 @@ public class Person {
 		this.street = new SimpleStringProperty("moriguchi");
 		this.postalcode = new SimpleIntegerProperty(1234);
 		this.city = new SimpleStringProperty("osaka");
-		this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(2000, 5, 20));
+		//this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(2000, 5, 20));
 
 	}
 
@@ -102,16 +98,16 @@ public class Person {
         return city;
     }
 
-    public LocalDate getBirthday() {
-        return birthday.get();
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday.set(birthday);
-    }
-
-    public ObjectProperty<LocalDate> birthdayProperty() {
-        return birthday;
-    }
+//    public LocalDate getBirthday() {
+//        return birthday.get();
+//    }
+//
+//    public void setBirthday(LocalDate birthday) {
+//        this.birthday.set(birthday);
+//    }
+//
+//    public ObjectProperty<LocalDate> birthdayProperty() {
+//        return birthday;
+//    }
 
 }
