@@ -11,6 +11,6 @@
 * Window Native Package
 * A exe file installer on windows
 
-# reference 
+# references
 **Marco Jakob Blog: https://code.makery.ch/**
  
